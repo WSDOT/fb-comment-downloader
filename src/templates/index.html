@@ -1,0 +1,30 @@
+
+
+
+<!doctype html>
+{% block head %}
+  <meta charset=utf-8>
+  <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+{% endblock %}
+
+{% block body %}
+<div class="wrapper">
+  <div class="form">
+    <h3>Enter a {{ page_name }} Facebook post url</h3>
+    <p class="info-1">
+      Click a post's timestamp to get the url
+    </p>
+    <form id="url-form" action="." method="post">
+      <input type="text" name="text">
+      <input type="submit" value="Download Comments">
+    </form>
+    <p class="info-2">
+    This may take some time for posts with a large number of comments.
+    </p>
+  {% if error %}
+    <p>Please make sure you entered a valid facebook  url.</p>
+  {% endif %}
+  </div>
+</div>
+
+{% endblock %}

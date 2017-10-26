@@ -1,0 +1,54 @@
+h3, p {
+  font-family: Arial, sans-serif;
+}
+
+input[type=text], select {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  font-family: Arial, sans-serif;
+  background-color: #00795F;
+  width: 100%;
+  color: white;
+  padding: 14px 20px;
+  font-size: 12pt;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #004F50;
+}
+
+.info-1 {
+  font-family: Arial, sans-serif;
+  font-size: 12pt;
+}
+
+.info-2 {
+  font-family: Arial, sans-serif;
+  font-size: 10pt;
+}
+
+.form {
+  width: 50%;
+  border-radius: 5px;
+  background-color: #f2f2f2;
+  padding: 20px;
+  display: inline-block;
+} 
+
+.wrapper {
+  text-align: center;
+}
