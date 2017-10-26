@@ -3,6 +3,8 @@
 A small web app for downloading comments from a public facebook page post.
 Comment scraping from https://github.com/minimaxir/facebook-page-post-scraper
 
+![web app screenshot](https://user-images.githubusercontent.com/6343384/32080000-15438f94-ba62-11e7-93cf-bcc897b52f04.png)
+
 Setup
 -----
 
