@@ -38,16 +38,14 @@ except ImportError:
 # Modififed to only attempt once - Logan Sims
 def request_once(url):
     req = Request(url)
-    success = False
-    while success is False:
-        try:
-            response = urlopen(req)
-            if response.getcode() == 200:
-                success = True
-        except Exception as e:
-            print(e)
-            print("Error for URL {}: {}".format(url, datetime.datetime.now()))
-            return None
+    try:
+        response = urlopen(req)
+        if response.getcode() == 200:
+            success = True
+    except Exception as e:
+        print(e)
+        print("Error for URL {}: {}".format(url, datetime.datetime.now()))
+        return None
 
     return response.read()
 
