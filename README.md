@@ -28,7 +28,7 @@ pip install -r requirements-dev.txt
 
 `FLASK_APP=fb_comment_downloader_app.py flask run`
 
-##### Run Test
+##### Run tests
 
 `python test_validation.py`. 
 Currently, we only have a few tests for checking the facebook urls.
