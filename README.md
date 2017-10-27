@@ -1,20 +1,18 @@
-# Facebook Comment Scraper #
+# Facebook Comment Downloader #
 
 A small web app for downloading comments from a public facebook page post.
-Comment scraping from https://github.com/minimaxir/facebook-page-post-scraper
+Comment downloading from https://github.com/minimaxir/facebook-page-post-scraper
 
 ![web app screenshot](https://user-images.githubusercontent.com/6343384/32080000-15438f94-ba62-11e7-93cf-bcc897b52f04.png)
 
 Setup
 -----
 
-We use pip for dependencies.
-
 ```
 pip install -r requirements.txt
 ```
 
-You will need to [register and configure a Facebook app](https://developers.facebook.com/docs/apps/register/). Once you've done this fill out `config.py` with your information.
+This application is set up to only download comments on posts from a specified public facebook page. You will need to [register and configure a Facebook app](https://developers.facebook.com/docs/apps/register/). Once you've done this, fill out `config.py` with your information.
 
 This project is built with [Flask](http://flask.pocoo.org/).
 Hosting is up to you, the Flask webpage explains [some options](http://flask.pocoo.org/docs/0.12/deploying/).
