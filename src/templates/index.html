@@ -19,11 +19,11 @@
       <input type="submit" value="Download Comments">
     </form>
     <p class="info-2">
-    This may take some time for posts with a large number of comments.
+    This may take some time for posts with a large number of comments
     </p>
-  {% if error %}
-    <p>Please make sure you entered a valid facebook  url.</p>
-  {% endif %}
+    {% if error %}
+      <p> {{ error }} </p>
+    {% endif %}
   </div>
 </div>
 

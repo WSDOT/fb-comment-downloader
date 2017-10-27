@@ -162,7 +162,17 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
 
             url = getFacebookCommentFeedUrl(base_url)
             # print(url)
-            comments = json.loads(request_once(url))
+            
+            data = request_once(url)
+
+            if data is None:
+                writer.writerow(['url error'])
+                yield stringIO.getvalue()
+                stringIO.seek(0)
+                stringIO.truncate(0)
+                raise StopIteration
+            
+            comments = json.loads(data)
 
             reactions = getReactionsForComments(base_url)
 

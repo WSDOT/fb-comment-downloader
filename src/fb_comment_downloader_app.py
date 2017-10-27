@@ -11,6 +11,7 @@ from flask import request
 from werkzeug.datastructures import Headers
 
 from validation import get_post_id
+from validation import get_page_name
 
 from get_fb_comments_from_fb import scrapeFacebookPageFeedComments
 from get_fb_comments_from_fb import request_once
@@ -28,18 +29,23 @@ def index_post():
 
     error = None
     print request.data
-    text = request.form['text']
-    
-    if request_once(text) == None:
-        error='Invaild url'
+    url = request.form['text']
+
+    if request_once(url) == None:
+        error="Please make sure you entered a vaild url"
         return render_template('index.html', page_name=config.page_name, error=error) 
     
-    post_id = get_post_id(text)
+    if get_page_name(url) != config.page_name:
+        error="Please enter a post url for the {0} page".format(config.page_name)
+        return render_template('index.html', page_name=config.page_name, error=error) 
+
+    
+    post_id = get_post_id(url)
     
     status_id = "{0}_{1}".format(config.page_id, post_id)
 
     if status_id == None:
-        error='Invaild url'
+        error="Please make sure you entered a vaild Facebook url"
         return render_template('index.html', page_name=config.page_name, error=error) 
 
     si = StringIO.StringIO()
