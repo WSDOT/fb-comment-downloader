@@ -34,7 +34,6 @@ try:
 except ImportError:
     from urllib2 import urlopen, Request
 
-
 # Modififed to only attempt once - Logan Sims
 def request_once(url):
     req = Request(url)
