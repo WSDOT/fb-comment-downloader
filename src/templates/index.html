@@ -1,11 +1,19 @@
-
-
-
 <!doctype html>
 {% block head %}
   <meta charset=utf-8>
+  
   <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript" src="static/script.js"></script>  
 {% endblock %}
+
+<script>
+  window.onload = function() {
+    setup();
+  };
+</script>
 
 {% block body %}
 <div class="wrapper">
@@ -14,17 +22,21 @@
     <p class="info-1">
       Click a post's timestamp to get the url
     </p>
-    <form id="url-form" action="." method="post">
+    <form id="url-form" action="." method="POST">
       <input type="text" name="text">
-      <input type="submit" value="Download Comments">
+      <input type="submit" value="Get Comments">
     </form>
+    
     <p class="info-2">
-    This may take some time for posts with a large number of comments
-    </p>
-    {% if error %}
-      <p> {{ error }} </p>
-    {% endif %}
+    This may take awhile for posts with a large number of comments
+    </p>    
+
+    <div id="download"></div>
+    <div id="error"></div>
+
   </div>
 </div>
+
+<div class="modal"/>  
 
 {% endblock %}

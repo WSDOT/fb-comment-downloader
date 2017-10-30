@@ -14,9 +14,8 @@ input[type=text], select {
   box-sizing: border-box;
 }
 
-input[type=submit] {
+input[type=submit], .download-button {
   font-family: Arial, sans-serif;
-  background-color: #00795F;
   width: 100%;
   color: white;
   padding: 14px 20px;
@@ -27,8 +26,17 @@ input[type=submit] {
   cursor: pointer;
 }
 
+input[type=submit], .download-button {
+  background-color: #00795F;
+}
+
 input[type=submit]:hover {
   background-color: #004F50;
+}
+
+.download-button {
+  background-color: #007A99;
+  text-decoration: none;
 }
 
 .info-1 {
@@ -39,6 +47,11 @@ input[type=submit]:hover {
 .info-2 {
   font-family: Arial, sans-serif;
   font-size: 10pt;
+  padding-bottom: 14px;
+}
+
+.error-message {
+  color: #af2b2b;
 }
 
 .form {
@@ -49,6 +62,33 @@ input[type=submit]:hover {
   display: inline-block;
 } 
 
+.material-icons, .icon-text {
+  vertical-align: middle;
+}
+
 .wrapper {
   text-align: center;
+}
+
+/* loading spinner */
+.modal {
+    display:    none;
+    position:   fixed;
+    z-index:    1000;
+    top:        0;
+    left:       0;
+    height:     100%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                url('loader.gif') 
+                50% 50% 
+                no-repeat;
+}
+
+body.loading {
+    overflow: hidden;   
+}
+
+body.loading .modal {
+    display: block;
 }

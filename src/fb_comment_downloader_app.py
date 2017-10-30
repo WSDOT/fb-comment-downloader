@@ -7,6 +7,7 @@ from flask import render_template
 from flask import stream_with_context
 from flask import Response
 from flask import request
+from flask import jsonify
 
 from werkzeug.datastructures import Headers
 
@@ -32,12 +33,12 @@ def index_post():
     url = request.form['text']
 
     if request_once(url) == None:
-        error="Please make sure you entered a vaild url"
-        return render_template('index.html', page_name=config.page_name, error=error) 
+        message="Please make sure you entered a vaild url"
+        return jsonify({"error": message})
     
     if get_page_name(url) != config.page_name:
-        error="Please enter a post url for the {0} page".format(config.page_name)
-        return render_template('index.html', page_name=config.page_name, error=error) 
+        message="Please enter a post url for the {0} page".format(config.page_name)
+        return jsonify({"error": message})
 
     
     post_id = get_post_id(url)
@@ -45,8 +46,8 @@ def index_post():
     status_id = "{0}_{1}".format(config.page_id, post_id)
 
     if status_id == None:
-        error="Please make sure you entered a vaild Facebook url"
-        return render_template('index.html', page_name=config.page_name, error=error) 
+        message="Please make sure you entered a vaild Facebook url"
+        return jsonify({"error": message})
 
     si = StringIO.StringIO()
     cw = csv.writer(si) 
@@ -63,7 +64,7 @@ def index_post():
             config.page_id, 
             config.access_token, 
             status_id)),
-        mimetype='text/csv', headers=headers
+        mimetype='application/download', headers=headers
     )
 
 if __name__ == "__main__":
