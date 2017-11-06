@@ -8,20 +8,20 @@
   "repository": "https://github.com/loganSims/fb-comment-downloader",
   "env": {
     "APP_ID": {
-      "description": "Facebook app ID. see https://developers.facebook.com/docs/apps/register/.",
-      "value": "This will be replaced after deployment"
+      "description": "Your Facebook app ID. See https://developers.facebook.com/docs/apps/register/.",
+      "value": "Replace with your app ID"
     },
     "APP_SECRET": {
-      "description": "Secret key, do not share with anyone!",
-      "value": "This will be replaced after deployment"
+      "description": "Your Facebook app secret key, do not share with anyone!",
+      "value": "Replace with your app secret key"
     },
     "PAGE_ID": {
       "description": "ID of the public Facebook page where comments will be downloaded from.",
-      "value": "This will be replaced after deployment"
+      "value": "Replace with your page ID"
     },
     "PAGE_NAME": {
-      "description": "Replace this with the title of the Facebook page.",
-      "value": "This will be replaced after deployment"
+      "description": "The name of your Facebook page where comments will be downloaded from.",
+      "value": "Replace with your page name"
     }
   },
   "formation": {
