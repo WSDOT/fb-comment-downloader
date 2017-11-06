@@ -5,7 +5,7 @@
     "python",
     "flask"
   ],
-  "repository": "https://github.com/loganSims/fb-comment-downloader",
+  "repository": "https://github.com/WSDOT/fb-comment-downloader",
   "env": {
     "APP_ID": {
       "description": "Your Facebook app ID. See https://developers.facebook.com/docs/apps/register/.",
