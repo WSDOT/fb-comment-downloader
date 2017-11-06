@@ -14,6 +14,10 @@ pip install -r requirements.txt
 
 This application is set up to only download comments on posts from a specified public facebook page. You will need to [register and configure a Facebook app](https://developers.facebook.com/docs/apps/register/). Once you've done this, fill out `config.py` with your information.
 
+Deployment
+----------
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 This project is built with [Flask](http://flask.pocoo.org/).
 Hosting is up to you, the Flask webpage explains [some options](http://flask.pocoo.org/docs/0.12/deploying/).
 

@@ -1,0 +1,34 @@
+{
+  "name": "Facebook Comment Downloader",
+  "description": "A web app for downloading Facebook comments as a csv file.",
+  "keywords": [
+    "python",
+    "flask"
+  ],
+  "repository": "https://github.com/loganSims/fb-comment-downloader",
+  "env": {
+    "APP_ID": {
+      "description": "Your Facebook app ID. See https://developers.facebook.com/docs/apps/register/.",
+      "value": "Replace with your app ID"
+    },
+    "APP_SECRET": {
+      "description": "Your Facebook app secret key, do not share with anyone!",
+      "value": "Replace with your app secret key"
+    },
+    "PAGE_ID": {
+      "description": "ID of the public Facebook page where comments will be downloaded from.",
+      "value": "Replace with your page ID"
+    },
+    "PAGE_NAME": {
+      "description": "The name of your Facebook page where comments will be downloaded from.",
+      "value": "Replace with your page name"
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1,
+      "size": "free"
+    }
+  },
+  "image": "heroku/python"
+}
