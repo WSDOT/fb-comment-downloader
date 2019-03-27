@@ -7,13 +7,9 @@
   ],
   "repository": "https://github.com/WSDOT/fb-comment-downloader",
   "env": {
-    "APP_ID": {
-      "description": "Your Facebook app ID. See https://developers.facebook.com/docs/apps/register/.",
-      "value": "Replace with your app ID"
-    },
-    "APP_SECRET": {
-      "description": "Your Facebook app secret key, do not share with anyone!",
-      "value": "Replace with your app secret key"
+    "PAGE_ACCESS_TOKEN": {
+      "description": "Your Facebook page access token. Recommend using a permanent system user token.",
+      "value": "Replace with your page access token"
     },
     "PAGE_ID": {
       "description": "ID of the public Facebook page where comments will be downloaded from.",
