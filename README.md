@@ -16,6 +16,13 @@ pip install -r requirements.txt
 
 This application is set up to only download comments on posts from a specified public facebook page. You will need to [register and configure a Facebook app](https://developers.facebook.com/docs/apps/register/). Once you've done this, fill out `config.py` with your information.
 
+To get comment author and reactions info you will need to use a [Page Access token](https://developers.facebook.com/docs/facebook-login/access-tokens/#pagetokens) from a user who has admin rights to the page. You can get a token by setting up a [system user](https://developers.facebook.com/docs/audience-network/reporting-api/systemuser/).
+
+Be aware of the following restriction: 
+> Devmode Apps — Apps in Devmode are now rate-limited to 200 calls per hour, per page-app pair, and can only access Users who have a role on the app (admin, developer, or tester).
+
+https://developers.facebook.com/docs/graph-api/changelog/breaking-changes
+
 Deployment
 ----------
 This project is built with [Flask](http://flask.pocoo.org/).
