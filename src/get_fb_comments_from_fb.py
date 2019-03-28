@@ -2,24 +2,24 @@
 #
 # Copyright (c) 2017 Max Woolf
 #
-# Permission is hereby granted, free of charge, to any person 
-# obtaining a copy of this software and associated documentation 
-# files (the "Software"), to deal in the Software without 
-# restriction, including without limitation the rights to use, 
-# copy, modify, merge, publish, distribute, sublicense, and/or 
-# sell copies of the Software, and to permit persons to whom 
+# Permission is hereby granted, free of charge, to any person
+# obtaining a copy of this software and associated documentation
+# files (the "Software"), to deal in the Software without
+# restriction, including without limitation the rights to use,
+# copy, modify, merge, publish, distribute, sublicense, and/or
+# sell copies of the Software, and to permit persons to whom
 # the Software is furnished to do so, subject to the following conditions:
 
 # The above copyright notice and this permission notice shall be included
 # in all copies or substantial portions of the Software.
 
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, 
-# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES 
-# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND 
-# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT 
-# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
-# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, 
-# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+# EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+# OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+# NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+# HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+# WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR
 # THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 #
 # https://github.com/minimaxir/facebook-page-post-scraper
@@ -32,7 +32,7 @@ import time
 try:
     from urllib.request import urlopen, Request
 except ImportError:
-    from urllib2 import urlopen, Request
+    from urllib.request import urlopen, Request
 
 # Modififed to only attempt once - Logan Sims
 def request_once(url):
@@ -77,7 +77,7 @@ def processFacebookComment(comment, status_id, parent_id=''):
         is '' else unicode_decode(comment['message'])
 
     comment_author = unicode_decode(comment['from']['name'] if 'from' in comment else "user")
-    
+
     if 'attachment' in comment:
         attachment_type = comment['attachment']['type']
         attachment_type = 'gif' if attachment_type == 'animated_image_share' \
@@ -112,8 +112,7 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
     parameters = "/?limit={}&access_token={}".format(
         100, access_token)
 
-    print("Scraping {} Comments From Posts: {}\n".format(
-        page_id, scrape_starttime))
+    print("Scraping {} Comments From Posts: {}\n".format(page_id, scrape_starttime))
 
     reader = [dict(status_id=status_id)]
 
@@ -127,7 +126,7 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
             base_url = base + node + parameters + after
 
             url = getFacebookCommentFeedUrl(base_url)
-            
+
             data = request_once(url)
 
             if data is None:
@@ -136,14 +135,14 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
                 stringIO.seek(0)
                 stringIO.truncate(0)
                 raise StopIteration
-            
+
             comments = json.loads(data)
 
 
             for comment in comments['data']:
                 comment_data = processFacebookComment(
                     comment, status['status_id'])
-                
+
                 writer.writerow(comment_data)
                 yield stringIO.getvalue()
                 stringIO.seek(0)
@@ -175,9 +174,7 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
 
                             num_processed += 1
                             if num_processed % 100 == 0:
-                                print("{} Comments Processed: {}".format(
-                                    num_processed,
-                                    datetime.datetime.now()))
+                                print("{} Comments Processed: {}".format(num_processed,datetime.datetime.now()))
 
                         if 'paging' in sub_comments:
                             if 'next' in sub_comments['paging']:
@@ -192,8 +189,7 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
                 # stalling
                 num_processed += 1
                 if num_processed % 100 == 0:
-                    print("{} Comments Processed: {}".format(
-                        num_processed, datetime.datetime.now()))
+                    print("{} Comments Processed: {}".format(num_processed, datetime.datetime.now()))
 
             if 'paging' in comments:
                 if 'next' in comments['paging']:
@@ -203,6 +199,4 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
             else:
                 has_next_page = False
 
-        print("\nDone!\n{} Comments Processed in {}".format(
-            num_processed, datetime.datetime.now() - scrape_starttime))
-
+        print("\nDone!\n{} Comments Processed in {}".format(num_processed, datetime.datetime.now() - scrape_starttime))
