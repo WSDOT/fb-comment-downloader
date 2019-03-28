@@ -55,7 +55,6 @@ def unicode_decode(text):
     except UnicodeDecodeError:
         return text.encode('utf-8')
 
-
 def getFacebookCommentFeedUrl(base_url):
 
     # Construct the URL string
@@ -64,35 +63,6 @@ def getFacebookCommentFeedUrl(base_url):
     url = base_url + fields
 
     return url
-
-
-def getReactionsForComments(base_url):
-
-    reaction_types = ['like', 'love', 'wow', 'haha', 'sad', 'angry']
-    reactions_dict = {}   # dict of {status_id: tuple<6>}
-
-    for reaction_type in reaction_types:
-        fields = "&fields=reactions.type({}).limit(0).summary(total_count)".format(
-            reaction_type.upper())
-
-        url = base_url + fields
-
-        data = json.loads(request_once(url))['data']
-
-        data_processed = set()  # set() removes rare duplicates in statuses
-        for status in data:
-            id = status['id']
-            count = status['reactions']['summary']['total_count']
-            data_processed.add((id, count))
-
-        for id, count in data_processed:
-            if id in reactions_dict:
-                reactions_dict[id] = reactions_dict[id] + (count,)
-            else:
-                reactions_dict[id] = (count,)
-
-    return reactions_dict
-
 
 def processFacebookComment(comment, status_id, parent_id=''):
 
@@ -105,10 +75,9 @@ def processFacebookComment(comment, status_id, parent_id=''):
     comment_id = comment['id']
     comment_message = '' if 'message' not in comment or comment['message'] \
         is '' else unicode_decode(comment['message'])
-    comment_author = unicode_decode(comment['from']['name'])
-    num_reactions = 0 if 'reactions' not in comment else \
-        comment['reactions']['summary']['total_count']
 
+    comment_author = unicode_decode(comment['from']['name'] if 'from' in comment else "user")
+    
     if 'attachment' in comment:
         attachment_type = comment['attachment']['type']
         attachment_type = 'gif' if attachment_type == 'animated_image_share' \
@@ -129,14 +98,12 @@ def processFacebookComment(comment, status_id, parent_id=''):
     # Return a tuple of all processed data
 
     return (comment_id, status_id, parent_id, comment_message, comment_author,
-            comment_published, num_reactions)
+            comment_published)
 
 # Modififed to yield contents of CSV - Logan Sims
 def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, status_id):
     writer.writerow(["comment_id", "status_id", "parent_id", "comment_message",
-                "comment_author", "comment_published", "num_reactions",
-                "num_likes", "num_loves", "num_wows", "num_hahas",
-                "num_sads", "num_angrys", "num_special"])
+                "comment_author", "comment_published"])
 
     num_processed = 0
     scrape_starttime = datetime.datetime.now()
@@ -160,7 +127,6 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
             base_url = base + node + parameters + after
 
             url = getFacebookCommentFeedUrl(base_url)
-            # print(url)
             
             data = request_once(url)
 
@@ -173,17 +139,12 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
             
             comments = json.loads(data)
 
-            reactions = getReactionsForComments(base_url)
 
             for comment in comments['data']:
                 comment_data = processFacebookComment(
                     comment, status['status_id'])
-                reactions_data = reactions[comment_data[0]]
-
-                # calculate thankful/pride through algebra
-                num_special = comment_data[6] - sum(reactions_data)
-                writer.writerow(comment_data + reactions_data +
-                           (num_special, ))
+                
+                writer.writerow(comment_data)
                 yield stringIO.getvalue()
                 stringIO.seek(0)
                 stringIO.truncate(0)
@@ -202,20 +163,12 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
                             sub_base_url)
                         sub_comments = json.loads(
                             request_once(sub_url))
-                        sub_reactions = getReactionsForComments(
-                            sub_base_url)
 
                         for sub_comment in sub_comments['data']:
                             sub_comment_data = processFacebookComment(
                                 sub_comment, status['status_id'], comment['id'])
-                            sub_reactions_data = sub_reactions[
-                                sub_comment_data[0]]
 
-                            num_sub_special = sub_comment_data[
-                                6] - sum(sub_reactions_data)
-
-                            writer.writerow(sub_comment_data +
-                                       sub_reactions_data + (num_sub_special,))
+                            writer.writerow(sub_comment_data)
                             yield stringIO.getvalue()
                             stringIO.seek(0)
                             stringIO.truncate(0)
