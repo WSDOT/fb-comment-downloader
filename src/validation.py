@@ -15,7 +15,7 @@ def get_post_id_from_fb_url(url):
 
     if matches:
         matches_list = matches.group(1).split('/')
-        filtered_matches_list = filter(None, matches_list)
+        filtered_matches_list = [_f for _f in matches_list if _f]
         return filtered_matches_list[-1]
 
     else:

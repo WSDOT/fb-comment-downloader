@@ -1,4 +1,4 @@
-import StringIO
+import io
 import csv
 import re
 
@@ -29,28 +29,27 @@ def index():
 def index_post():
 
     error = None
-    print request.data
     url = request.form['text']
 
     if request_once(url) == None:
         message="Please make sure you entered a vaild url"
         return jsonify({"error": message})
-    
+
     if get_page_name(url) != config.page_name:
         message="Please enter a post url for the {0} page".format(config.page_name)
         return jsonify({"error": message})
 
-    
+
     post_id = get_post_id(url)
-    
+
     status_id = "{0}_{1}".format(config.page_id, post_id)
 
     if status_id == None:
         message="Please make sure you entered a vaild Facebook url"
         return jsonify({"error": message})
 
-    si = StringIO.StringIO()
-    cw = csv.writer(si) 
+    si = io.StringIO()
+    cw = csv.writer(si)
 
     # add a filename
     headers = Headers()
@@ -60,9 +59,9 @@ def index_post():
     return Response(
         stream_with_context(scrapeFacebookPageFeedComments(
             si,
-            cw, 
-            config.page_id, 
-            config.access_token, 
+            cw,
+            config.page_id,
+            config.access_token,
             status_id)),
         mimetype='application/download', headers=headers
     )

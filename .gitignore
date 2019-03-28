@@ -1,2 +1,5 @@
-src/*.pyc
+*.pyc
 .*
+env/
+*.bak
+__pycache__

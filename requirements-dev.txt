@@ -1,7 +1,8 @@
 click==6.7
 ddt==1.1.1
-Flask==0.12.3
+Flask==1.0.2
 itsdangerous==0.24
-Jinja2==2.9.6
+Jinja2==2.10.0
 MarkupSafe==1.0
-Werkzeug==0.12.2
+Werkzeug==0.14.1
+ddt==1.1.1
