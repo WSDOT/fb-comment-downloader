@@ -135,9 +135,12 @@ def scrapeFacebookPageFeedComments(stringIO, writer, page_id, access_token, stat
                 stringIO.seek(0)
                 stringIO.truncate(0)
                 raise StopIteration
-
-            comments = json.loads(data)
-
+                
+            # python 3.6+ decodes automatically 
+            try:
+                comments = json.loads(data)
+            except TypeError:
+                comments = json.loads(data.decode('utf-8'))
 
             for comment in comments['data']:
                 comment_data = processFacebookComment(
